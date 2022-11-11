@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 22:14:54 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 22:21:07 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	unsigned char	*pb;
-
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

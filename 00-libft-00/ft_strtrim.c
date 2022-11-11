@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 21:08:57 by jison             #+#    #+#             */
+/*   Updated: 2022/11/11 12:52:07 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+static int	ft_isset(char c, char *set)
 {
-	unsigned char	*pb;
+	while (*set && *set != c)
+		++set;
+	return (*set == c);
+}
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*lo;
+	char	*hi;
+
+	lo = (char *)s1;
+	while (*lo && ft_isset(*lo, (char *)set))
+		++lo;
+	if (*lo == '\0')
+		return (ft_substr(lo, 0, 0));
+	hi = lo;
+	while (*hi)
+		++hi;
+	--hi;
+	while (ft_isset(*hi, (char *)set))
+		--hi;
+	++hi;
+	return (ft_substr(lo, 0, hi - lo));
 }

@@ -6,11 +6,11 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:12 by jison             #+#    #+#             */
-/*   Updated: 2022/11/09 14:52:21 by jison            ###   ########.fr       */
+/*   Updated: 2022/11/10 13:15:03 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <sys/types.h>
 #include "libft.h"
 
 void	ft_bzero(void *b, size_t n)

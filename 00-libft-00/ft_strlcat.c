@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 14:36:59 by jison             #+#    #+#             */
+/*   Updated: 2022/11/11 12:42:48 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	unsigned char	*pb;
+	size_t	dstlen;
+	size_t	srclen;
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+	dstlen = ft_strlen(dst);
+	srclen = ft_strlen(src);
+	if (dstsize <= dstlen)
+		return (dstsize + srclen);
+	if (dstlen + srclen + 1 <= dstsize)
+	{
+		ft_memcpy(dst + dstlen, src, srclen + 1);
+	}
+	else if (dstlen + 1 <= dstsize)
+	{
+		ft_memcpy(dst + dstlen, src, dstsize - dstlen - 1);
+		dst[dstsize - 1] = '\0';
+	}
+	return (dstlen + srclen);
 }

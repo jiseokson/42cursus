@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_tochr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 13:20:22 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 13:20:45 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int	ft_toupper(int c)
 {
-	unsigned char	*pb;
+	if ('a' <= c && c <= 'z')
+		return (c - 'a' + 'A');
+	return (c);
+}
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+int	ft_tolower(int c)
+{
+	if ('A' <= c && c <= 'Z')
+		return (c - 'A' + 'a');
+	return (c);
 }

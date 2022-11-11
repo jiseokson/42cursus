@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 21:04:17 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 21:07:42 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
+#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	*pb;
+	unsigned int	i;
+	char			*ret;
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+	ret = (char *)ft_calloc((ft_strlen(s) + 1), sizeof(char));
+	if (!ret)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		ret[i] = f(i, s[i]);
+		++i;
+	}
+	return (ret);
 }

@@ -6,18 +6,20 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:06:11 by jison             #+#    #+#             */
-/*   Updated: 2022/11/09 14:13:16 by jison            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:36:20 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <sys/types.h>
 #include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned char	*pdst;
-	unsigned char	*psrc;
+	unsigned char		*pdst;
+	const unsigned char	*psrc;
 
+	if (dst == 0 && src == 0)
+		return (0);
 	pdst = (unsigned char *)dst;
 	psrc = (const unsigned char *)src;
 	while (n-- > 0)

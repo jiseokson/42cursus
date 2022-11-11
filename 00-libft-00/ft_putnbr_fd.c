@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 19:02:38 by jison             #+#    #+#             */
+/*   Updated: 2022/11/11 12:41:59 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+static int	ft_abs(int n)
 {
-	unsigned char	*pb;
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+static void	ft_putnbr_recur_fd(int n, int fd)
+{
+	if (n == 0)
+		return ;
+	ft_putnbr_recur_fd(n / 10, fd);
+	ft_putchar_fd(ft_abs(n % 10) + '0', fd);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n == 0)
+	{
+		ft_putchar_fd('0', fd);
+		return ;
+	}
+	if (n < 0)
+		ft_putchar_fd('-', fd);
+	ft_putnbr_recur_fd(n, fd);
 }

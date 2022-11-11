@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:13:50 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 13:15:24 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 16:29:10 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 17:46:53 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	unsigned char	*pb;
+	size_t	needle_len;
 
-	pb = (unsigned char *)b;
-	while (len-- > 0)
-		*pb++ = (unsigned char)c;
-	return (b);
+	if (*needle == '\0')
+		return ((char *)haystack);
+	needle_len = ft_strlen(needle);
+	while (*haystack && needle_len <= len)
+	{
+		if (ft_strncmp(haystack, needle, needle_len) == 0)
+			return ((char *)haystack);
+		++haystack;
+		--len;
+	}
+	return (0);
 }

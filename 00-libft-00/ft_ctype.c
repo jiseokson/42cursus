@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ctype.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jison <jison@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:56:04 by jison             #+#    #+#             */
-/*   Updated: 2022/11/07 16:55:59 by jison            ###   ########.fr       */
+/*   Updated: 2022/11/10 13:20:59 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,3 @@ int	ft_isprint(int c)
 {
 	return (32 <= c && c <= 126);
 }
-
-int	ft_toupper(int c)
-{
-	if ('a' <= c && c <= 'z')
-		return (c - 'a' + 'A');
-	return (c);
-}
-
-int ft_tolower(int c)
-{
-	if ('A' <= c && c <= 'Z')
-		return (c - 'A' + 'a');
-	return (c);
-} 
