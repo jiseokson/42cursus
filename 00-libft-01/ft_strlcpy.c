@@ -1,38 +1,28 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 13:43:55 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 15:46:13 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	const char	*ptr;
 
-	ptr = s;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	ptr = src;
+	while (--dstsize > 0 && *ptr)
+		*dst++ = *ptr++;
+	*dst = '\0';
 	while (*ptr)
 		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
-{
-    const char  *ptr;
-
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+	return (ptr - src);
 }

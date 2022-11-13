@@ -1,38 +1,38 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_ctype.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/07 15:56:04 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 13:20:59 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_isalpha(int c)
 {
-	const char	*ptr;
+	return (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'));
+}
 
-	ptr = s;
-	while (*ptr)
-		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
+int	ft_isdigit(int c)
 {
-    const char  *ptr;
+	return ('0' <= c && c <= '9');
+}
 
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
+int	ft_isascii(int c)
+{
+	return (0 <= c && c < 128);
+}
+
+int	ft_isprint(int c)
+{
+	return (32 <= c && c <= 126);
 }

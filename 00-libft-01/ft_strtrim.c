@@ -1,38 +1,40 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 21:08:57 by jison             #+#    #+#             */
+/*   Updated: 2022/11/11 12:52:07 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+static int	ft_isset(char c, char *set)
 {
-	const char	*ptr;
+	while (*set && *set != c)
+		++set;
+	return (*set == c);
+}
 
-	ptr = s;
-	while (*ptr)
-		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-    const char  *ptr;
+	char	*lo;
+	char	*hi;
 
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+	lo = (char *)s1;
+	while (*lo && ft_isset(*lo, (char *)set))
+		++lo;
+	if (*lo == '\0')
+		return (ft_substr(lo, 0, 0));
+	hi = lo;
+	while (*hi)
+		++hi;
+	--hi;
+	while (ft_isset(*hi, (char *)set))
+		--hi;
+	++hi;
+	return (ft_substr(lo, 0, hi - lo));
 }

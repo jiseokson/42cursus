@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -11,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
 size_t	ft_strlen(const char *s)
@@ -22,17 +20,4 @@ size_t	ft_strlen(const char *s)
 	while (*ptr)
 		++ptr;
 	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
-{
-    const char  *ptr;
-
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
 }

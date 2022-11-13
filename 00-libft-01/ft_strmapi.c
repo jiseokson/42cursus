@@ -1,38 +1,30 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 21:04:17 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 21:07:42 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	const char	*ptr;
+	unsigned int	i;
+	char			*ret;
 
-	ptr = s;
-	while (*ptr)
-		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
-{
-    const char  *ptr;
-
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+	ret = (char *)ft_calloc((ft_strlen(s) + 1), sizeof(char));
+	if (!ret)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		ret[i] = f(i, s[i]);
+		++i;
+	}
+	return (ret);
 }

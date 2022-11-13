@@ -1,38 +1,40 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/10 19:02:38 by jison             #+#    #+#             */
+/*   Updated: 2022/11/11 12:41:59 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+static int	ft_abs(int n)
 {
-	const char	*ptr;
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
-	ptr = s;
-	while (*ptr)
-		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
+static void	ft_putnbr_recur_fd(int n, int fd)
 {
-    const char  *ptr;
+	if (n == 0)
+		return ;
+	ft_putnbr_recur_fd(n / 10, fd);
+	ft_putchar_fd(ft_abs(n % 10) + '0', fd);
+}
 
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n == 0)
+	{
+		ft_putchar_fd('0', fd);
+		return ;
+	}
+	if (n < 0)
+		ft_putchar_fd('-', fd);
+	ft_putnbr_recur_fd(n, fd);
 }

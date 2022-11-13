@@ -1,38 +1,36 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:34:35 by jison             #+#    #+#             */
-/*   Updated: 2022/11/10 12:37:43 by jison            ###   ########.fr       */
+/*   Created: 2022/11/09 14:19:45 by jison             #+#    #+#             */
+/*   Updated: 2022/11/10 17:48:43 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	const char	*ptr;
+	unsigned char		*pdst;
+	const unsigned char	*psrc;
 
-	ptr = s;
-	while (*ptr)
-		++ptr;
-	return (ptr - s);
-=======
-#include <stddef.h>
-#include "libft.h"
-
-size_t  ft_strlen(const char *s)
-{
-    const char  *ptr;
-
-    ptr = s;
-    while (*ptr)
-        ++ptr;
-    return (ptr - s);
->>>>>>> 1eb9efb121cef7e5cd144221dacc7ec7db8bfdcd
+	if (dst == 0 && src == 0)
+		return (0);
+	pdst = (unsigned char *)dst;
+	psrc = (const unsigned char *)src;
+	if (pdst - psrc < 0 || (size_t)(pdst - psrc) >= len)
+	{
+		ft_memcpy(dst, src, len);
+	}
+	else
+	{
+		pdst += len - 1;
+		psrc += len - 1;
+		while (len-- > 0)
+			*pdst-- = *psrc--;
+	}
+	return (dst);
 }
