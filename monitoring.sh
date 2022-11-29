@@ -8,7 +8,7 @@ printf '#vCPU : %d\n' "$(cat /proc/cpuinfo | grep processor | wc -l)"
 
 free -m | awk '/Mem/ {printf "#Memory Usage: %d/%dMB (%.2f%%)\n", $3, $2, $3 / $2 * 100}'
 
-df -BM -a | awk '/mapper/ {used += $3; total += $4} END{printf "#Disk Usage: %d/%dGb (%d%%)\n", used, total / 1024, used / total * 100}'
+df -BM -a | awk '/mapper/ {used += $3; avail += $4} END{total = used + avail; printf "#Disk Usage: %d/%dGb (%d%%)\n", used, total / 1024, used / total * 100}'
 
 mpstat | awk '/all/ {printf "#CPU load: %.1f%%\n", 100 - $13}'
 
