@@ -6,13 +6,13 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 13:02:27 by jison             #+#    #+#             */
-/*   Updated: 2023/01/27 12:03:18 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/30 13:45:11 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	get_file_fd(int ac, char **av)
+int	get_map_file_fd(int ac, char **av)
 {
 	int		fd;
 	char	*path;
@@ -42,41 +42,49 @@ int	get_file_fd(int ac, char **av)
 char	*get_map_file_content(int fd)
 {
 	char	*buffer;
-	char	*temp1;
-	char	*temp2;
+	char	*line;
+	char	*temp;
 
 	buffer = ft_strdup("");
 	if (!buffer)
 		exit(1);
 	while (1)
 	{
-		temp1 = get_next_line(fd);
-		if (!temp1)
+		line = get_next_line(fd);
+		if (!line)
 			break ;
-		temp2 = ft_strjoin(buffer, temp1);
+		if (ft_strlen(line) == 1 && !ft_strncmp(line, "\n", 1))
+			log_empty_line(buffer, line, "Empty line in map file");
+		temp = ft_strjoin(buffer, line);
 		free(buffer);
-		free(temp1);
-		buffer = temp2;
+		free(line);
+		buffer = temp;
 		if (!buffer)
+		{
+			close(fd);
 			exit(1);
+		}
 	}
 	return (buffer);
 }
 
-t_game_state	new_game_state(int ac, char **av)
+t_game	new_game(int ac, char **av)
 {
-	t_game_state	game_state;
-	char			*buffer;
-	char			**lines;
+	t_game	game;
+	char	*buffer;
+	char	**lines;
+	int		fd;
 
-	ft_memset(&game_state, 0, sizeof(game_state));
-	buffer = get_map_file_content(get_file_fd(ac, av));
+	ft_memset(&game, 0, sizeof(game));
+	fd = get_map_file_fd(ac, av);
+	buffer = get_map_file_content(fd);
+	close(fd);
 	lines = ft_split(buffer, '\n');
 	free(buffer);
 	check_map_file_validity(lines);
-	parse_map(&game_state, lines);
+	parse_map(&game, lines);
 	ft_free_split(lines);
-	check_map_validity(game_state);
-	game_state.move_cnt = 0;
-	return (game_state);
+	check_map_validity(game);
+	game.move_cnt = 0;
+	return (game);
 }

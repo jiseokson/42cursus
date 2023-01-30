@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:23:55 by jison             #+#    #+#             */
-/*   Updated: 2023/01/27 15:02:57 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/30 11:20:08 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	render_entity(t_app *app)
 	t_map_comp	comp;
 
 	i = -1;
-	while (++i < app->game_state.map.width)
+	while (++i < app->game.map.width)
 	{
 		j = -1;
-		while (++j < app->game_state.map.height)
+		while (++j < app->game.map.height)
 		{
-			comp = at(app->game_state.map, i, j);
+			comp = at(app->game.map, i, j);
 			if (comp == MAP_COMP_EXIT_CLOSED)
 				mlx_put_image_to_window(
 					app->mlx, app->window, app->asset.exit_closed.image,
@@ -63,7 +63,7 @@ void	render(t_app *app)
 		app->mlx,
 		app->window,
 		app->asset.player.image,
-		app->asset.tile_size * app->game_state.player.x,
-		app->asset.tile_size * app->game_state.player.y
+		app->asset.tile_size * app->game.player.x,
+		app->asset.tile_size * app->game.player.y
 		);
 }

@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:11:32 by jison             #+#    #+#             */
-/*   Updated: 2023/01/27 16:11:27 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/30 13:56:35 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SO_LONG_H
 
 # include <stdio.h>
-# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -92,14 +91,14 @@ typedef struct s_game_map
 	char	*map;
 }				t_map;
 
-typedef struct s_game_state
+typedef struct s_game
 {
 	t_map			map;
 	t_player		player;
 	t_vec2			exit;
 	int				move_cnt;
 	int				collectible_cnt;
-}				t_game_state;
+}				t_game;
 
 typedef struct s_asset
 {
@@ -117,7 +116,7 @@ typedef struct s_asset
 typedef struct s_app
 {
 	int				is_running;
-	t_game_state	game_state;
+	t_game			game;
 	t_vec2			game_command;
 	t_asset			asset;
 	t_mlx_ptr		mlx;
@@ -139,20 +138,21 @@ t_map			new_map(int width, int height);
 t_map_comp		set(t_map map, int x, int y, t_map_comp comp);
 t_map_comp		at(t_map map, int x, int y);
 
+void			log_empty_line(char *buffer, char *line, char *message);
 void			log_map_file_validity(char **lines, char *message);
 void			log_map_validity(t_map map, char *message);
 void			check_map_file_validity(char **lines);
-void			check_map_validity(t_game_state game_state);
+void			check_map_validity(t_game game);
 
-void			parse_map(t_game_state *game_state, char **lines);
+void			parse_map(t_game *game, char **lines);
 void			load_asset(t_mlx_ptr mlx, t_asset *asset, t_map map);
-t_game_state	new_game_state(int ac, char **av);
+t_game			new_game(int ac, char **av);
 
 int				key_hook(int keycode, void *app_ptr);
 void			build_app(t_app *app, int ac, char **av);
 int				quit_app(void *app);
 int				game_loop(void *app_ptr);
-void			update(t_app *app, t_game_state *game_state, t_vec2 *gc);
+void			update(t_app *app, t_game *game, t_vec2 *gc);
 void			render(t_app *app);
 
 #endif

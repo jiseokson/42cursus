@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:44:58 by jison             #+#    #+#             */
-/*   Updated: 2023/01/27 13:43:18 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/30 13:28:17 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,22 @@ int	search(t_map map, t_map visited, int x, int y)
 int	reachable_collect(t_map map, t_player player)
 {
 	t_map	visited;
+	int		reachable;
 
 	visited = new_map(map.width, map.height);
 	if (!visited.map)
 		return (-1);
+	reachable = search(map, visited, player.x, player.y);
 	free(visited.map);
-	return (search(map, visited, player.x, player.y));
+	return (reachable);
 }
 
-void	check_map_validity(t_game_state game_state)
+void	check_map_validity(t_game game)
 {
 	int			i;
 	t_map		map;
 
-	map = game_state.map;
+	map = game.map;
 	i = -1;
 	while (++i < map.width)
 	{
@@ -110,7 +112,7 @@ void	check_map_validity(t_game_state game_state)
 			&& at(map, map.width - 1, i) == MAP_COMP_WALL))
 			log_map_validity(map, "All sides should be surrounded by walls");
 	}
-	if (reachable_collect(map, game_state.player) \
-		< game_state.collectible_cnt + 1)
+	if (reachable_collect(map, game.player) \
+		< game.collectible_cnt + 1)
 		log_map_validity(map, "No valid path exists");
 }

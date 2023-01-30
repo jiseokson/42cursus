@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:00:12 by jison             #+#    #+#             */
-/*   Updated: 2023/01/25 15:17:41 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/30 11:18:23 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_surface	blit(t_surface dst, t_surface src, int x, int y)
 			src.addr \
 			+ ((ft_max(-y, 0) + i) * src.line_size \
 			+ ft_max(-x, 0) * (src.bits_per_pixel / 8)),
-			(xf - xi + 1) * sizeof(int));
+			(xf - xi + 1) * (src.bits_per_pixel / 8));
 		++i;
 	}
 	return (dst);
@@ -89,5 +89,5 @@ void	fill(t_surface surface, int color)
 	ft_memset(
 		surface.addr,
 		color,
-		surface.width * surface.height * sizeof(int));
+		surface.width * surface.height * (surface.bits_per_pixel / 8));
 }
