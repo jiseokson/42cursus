@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 13:02:27 by jison             #+#    #+#             */
-/*   Updated: 2023/01/30 13:45:11 by jison            ###   ########.fr       */
+/*   Updated: 2023/01/31 16:11:29 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_map_file_fd(int ac, char **av)
 	base = ft_basename(path);
 	if (!base || ft_strncmp(base, MAP_FILE_EXT, ft_strlen(MAP_FILE_EXT)))
 	{
-		ft_printf("%s: File must have a .ver extension\n", TITLE);
+		ft_printf("%s: File must have a .$s extension\n", TITLE, MAP_FILE_EXT);
 		exit(1);
 	}
 	fd = open(path, O_RDONLY);
