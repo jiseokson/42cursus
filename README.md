@@ -1,1 +1,1 @@
-# 42seoul
+# 42cursus
