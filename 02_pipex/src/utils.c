@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 21:59:11 by jison             #+#    #+#             */
-/*   Updated: 2023/02/07 13:15:14 by jison            ###   ########.fr       */
+/*   Created: 2023/02/07 13:14:09 by jison             #+#    #+#             */
+/*   Updated: 2023/02/07 13:14:47 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_free_split(char **args)
 {
-	t_list	*node;
+	int	i;
 
-	node = (t_list *)malloc(sizeof(t_list));
-	if (!node)
-		return (0);
-	node->content = content;
-	node->next = 0;
-	return (node);
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }

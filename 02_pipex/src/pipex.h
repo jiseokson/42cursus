@@ -6,31 +6,48 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:15:05 by jison             #+#    #+#             */
-/*   Updated: 2023/02/02 18:13:02 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/09 18:38:20 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 
+# include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-typedef struct s_duplex_pipe
-{
-	int	fds0[2];
-	int	fds1[2];
-}				t_duplex_pipe;
+# define PROGRAM_NAME	"pipex"
 
-int		duplex_pipe(t_duplex_pipe *dp);
-void	parent_pipe(t_duplex_pipe *dp, int fd[]);
-void	child_pipe(t_duplex_pipe *dp, int fd[]);
-int		close_duplex_pipe(t_duplex_pipe *dp);
+typedef struct s_cmd_info
+{
+	char	*path;
+	char	**argv;
+}				t_cmd_info;
+
+typedef struct s_cmd_info_list
+{
+	t_list	*head;
+	t_list	*cur;
+	int		size;
+}				t_cmd_info_list;
+
+void			ft_free_split(char **args);
+
+void			ft_nextlst(t_list **lst);
+
+void			pipex_log(char *message);
+
+t_cmd_info		*new_cmd_info(char *cmd_string);
+void			delete_cmd_info(void *cmd_info_ptr);
+t_cmd_info_list	new_cmd_info_list(int cmd_cnt, char **cmdv);
+void			delete_cmd_info_list(t_cmd_info_list cmd_info_list);
 
 #endif

@@ -6,14 +6,14 @@
 #    By: jison <jison@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 11:43:11 by jison             #+#    #+#              #
-#    Updated: 2023/02/02 13:02:24 by jison            ###   ########.fr        #
+#    Updated: 2023/02/09 16:18:31 by jison            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
