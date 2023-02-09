@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:15:42 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 17:28:37 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/09 19:19:13 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_cmd_info	*new_cmd_info(char *cmd_string)
 	cmd_info = (t_cmd_info *)malloc(sizeof(t_cmd_info));
 	if (!cmd_info)
 		pipex_log("Failed to allocate command information");
+	ft_memset(cmd_info, 0, sizeof(t_cmd_info));
 	cmd_info->path = find_path(cmd_string);
 	cmd_info->argv = make_argv(cmd_string);
 	return (cmd_info);

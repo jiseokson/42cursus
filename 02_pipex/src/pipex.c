@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:50:47 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 18:46:59 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/09 19:38:41 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,22 @@ void	heredoc(int fds[], char *limiter)
 	}
 }
 
-void	open_init_file(int fds[][2], char *input_file, char *limiter)
+void	open_output_file(t_cmd_info *cmd_info, int fds[])
 {
-	if (ft_strlen(input_file) == ft_strlen("here_doc")
-		&& ft_strncmp(input_file, "here_doc", 8))
+	if (!cmd_info->outfile)
 	{
-		if (pipe(fds[0]) == -1)
-			pipex_log("pipe()");
-		heredoc(fds[0], limiter);
-	}
-	else
-	{
-		fds[0][0] = open(input_file, O_RDONLY);
-		if (fds[0][0] == -1)
-			pipex_log(input_file);
-		fds[0][1] = dup(fds[0][0]);
-	}
-}
-
-void	open_output_file(
-	int cmd_cnt, int fds[][2], char *output_file, int outfile_mode, int cmd_no)
-{
-	if (cmd_no + 1 < cmd_cnt)
-	{
-		if (pipe(fds[!(cmd_no % 2)]) == -1)
+		if (pipe(fds) == -1)
 			pipex_log("pipe()");
 	}
 	else
 	{
-		fds[!(cmd_no % 2)][1] = open(
-				output_file, O_CREAT | O_TRUNC | O_WRONLY, outfile_mode);
-		if (fds[!(cmd_no % 2)][1] == -1)
-			pipex_log(output_file);
-		fds[!(cmd_no % 2)][0] = dup(fds[0][1]);
+		fds[1] = open(
+				cmd_info->outfile,
+				O_CREAT | O_TRUNC | O_WRONLY,
+				cmd_info->outfile_perm);
+		if (fds[1] == -1)
+			pipex_log(cmd_info->outfile);
+		fds[0] = dup(fds[1]);
 	}
 }
 
@@ -93,6 +76,8 @@ void	exec_command(t_cmd_info *cmd_info, int fds[][2], int cmd_no)
 		dup2(fds[!(cmd_no % 2)][1], STDOUT_FILENO);
 		execve(cmd_info->path, cmd_info->argv, NULL);
 	}
+	close(fds[cmd_no % 2][0]);
+	close(fds[cmd_no % 2][1]);
 }
 
 void	wait_all(int cmd_cnt)
@@ -106,21 +91,18 @@ void	wait_all(int cmd_cnt)
 		pid = wait(&status);
 }
 
-void	pipex_job(
-	t_cmd_info_list cmd_info_list,
-	char *input_file, char *limiter, char *output_file, int outfile_mode)
+void	pipex_job(t_cmd_info_list cmd_info_list)
 {
 	int		fds[2][2];
 	int		i;
 
-	open_init_file(fds, input_file, limiter);
+	fds[0][0] = open(((t_cmd_info *)cmd_info_list.head->content)->infile, O_RDONLY);
+	fds[0][1] = dup(STDOUT_FILENO);
 	i = -1;
 	while (++i < cmd_info_list.size)
 	{
-		open_output_file(cmd_info_list.size, fds, output_file, outfile_mode, i);
+		open_output_file(cmd_info_list.cur->content, fds[!(i % 2)]);
 		exec_command(cmd_info_list.cur->content, fds, i);
-		close(fds[i % 2][0]);
-		close(fds[i % 2][1]);
 		ft_nextlst(&cmd_info_list.cur);
 	}
 	close(fds[cmd_info_list.size % 2][0]);
@@ -134,7 +116,12 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)envp;
 	cmd_info_list = new_cmd_info_list(argc - 3, argv + 2);
-	pipex_job(cmd_info_list, "input.txt", NULL, "output.txt", 0644);
+	((t_cmd_info *)cmd_info_list.head->content)->infile = argv[1];
+	((t_cmd_info *)cmd_info_list.head->content)->infile_limiter = NULL;
+	((t_cmd_info *)cmd_info_list.head->content)->infile_perm = -1;
+	((t_cmd_info *)ft_lstlast(cmd_info_list.head)->content)->outfile = argv[argc - 1];
+	((t_cmd_info *)ft_lstlast(cmd_info_list.head)->content)->outfile_perm = 0644;
+	pipex_job(cmd_info_list);
 	delete_cmd_info_list(cmd_info_list);
 	system("leaks pipex");
 	return (0);

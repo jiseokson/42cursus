@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:15:05 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 18:38:20 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/09 19:21:30 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_cmd_info
 {
 	char	*path;
 	char	**argv;
+	char	*infile;
+	char	*infile_limiter;
+	int		infile_perm;
+	char	*outfile;
+	int		outfile_perm;
 }				t_cmd_info;
 
 typedef struct s_cmd_info_list
@@ -40,7 +45,6 @@ typedef struct s_cmd_info_list
 }				t_cmd_info_list;
 
 void			ft_free_split(char **args);
-
 void			ft_nextlst(t_list **lst);
 
 void			pipex_log(char *message);
