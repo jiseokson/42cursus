@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:15:42 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 19:19:13 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:48:14 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 char	*find_path(char *cmd_name)
 {
 	(void)cmd_name;
+	ft_printf("cmd name: \'%s\'\n", cmd_name);
 	return (ft_strdup("/bin/cat"));
 }
 
 char	**make_argv(char *cmd_string)
 {
-	return (ft_split(cmd_string, ' '));
+	char	**argv;
+
+	argv = ft_split(cmd_string, ' ');
+	if (!argv)
+		pipex_log("Failed to pares command string");
+	return (argv);
 }
 
 t_cmd_info	*new_cmd_info(char *cmd_string)

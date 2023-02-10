@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:25:34 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 19:16:42 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:39:42 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_cmd_info_list	new_cmd_info_list(int cmd_cnt, char **cmdv)
 	{
 		temp = ft_lstnew(new_cmd_info(cmdv[i]));
 		if (!temp)
-			pipex_log("Failed to allocate command information");
+			pipex_log("Failed to allocate command information list");
 		ft_lstadd_back(&cmd_info_list.head, temp);
 	}
+	cmd_info_list.tail = ft_lstlast(cmd_info_list.head);
 	cmd_info_list.cur = cmd_info_list.head;
 	cmd_info_list.size = cmd_cnt;
 	return (cmd_info_list);

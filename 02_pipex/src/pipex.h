@@ -6,7 +6,7 @@
 /*   By: jison <jison@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:15:05 by jison             #+#    #+#             */
-/*   Updated: 2023/02/09 19:21:30 by jison            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:43:44 by jison            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ typedef struct s_cmd_info
 	char	**argv;
 	char	*infile;
 	char	*infile_limiter;
-	int		infile_perm;
 	char	*outfile;
+	int		infile_perm;
 	int		outfile_perm;
 }				t_cmd_info;
 
 typedef struct s_cmd_info_list
 {
 	t_list	*head;
+	t_list	*tail;
 	t_list	*cur;
 	int		size;
 }				t_cmd_info_list;
